@@ -2,6 +2,14 @@
 
 squick Unity引擎SDK
 
+Unity版本: 2020.03 以上
+
+打开场景: Scenes/StartUp 运行
+
+version: 1.0
+
+[服务端 1.0](https://github.com/pwnsky/squick)
+
 
 
 ## 功能
@@ -15,10 +23,6 @@ squick Unity引擎SDK
 
 
 ### 逻辑交互
-
-Version: 1.0
-
-[squick](https://github.com/pwnsky/squick)
 
 
 
@@ -47,4 +51,6 @@ Assets/
 │   ├── PluginManager
 │   └── Utility
 ```
+
+
 
