@@ -15,4 +15,6 @@ public class GameData
     public static string proxyKey = "";
     public static string proxyIP = "";
     public static int proxyPort = 0;
+    public static string ip = "";
+    public static int createdTime = 0;
 }

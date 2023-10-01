@@ -24,17 +24,20 @@ namespace Rpc {
     static PlayerReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgxwbGF5ZXIucHJvdG8SA3JwYyIPCg1SZXFQbGF5ZXJEYXRhIlAKDUFja1Bs",
-            "YXllckRhdGESDwoHYWNjb3VudBgBIAEoDBIRCglwbGF5ZXJfaWQYAiABKAwS",
-            "DAoEbmFtZRgDIAEoDBINCgVsZXZlbBgEIAEoBSp9CglQbGF5ZXJSUEMSEwoP",
-            "UExBWUVSX1JQQ19OT05FEAASFgoRQUNLX1BMQVlFUl9PTkxJTkUQ4F0SFwoS",
-            "QUNLX1BMQVlFUl9PRkZMSU5FEOFdEhQKD1JFUV9QTEFZRVJfREFUQRDiXRIU",
-            "Cg9BQ0tfUExBWUVSX0RBVEEQ411iBnByb3RvMw=="));
+            "CgxwbGF5ZXIucHJvdG8SA3JwYyIPCg1SZXFQbGF5ZXJEYXRhItoBCg1BY2tQ",
+            "bGF5ZXJEYXRhEg8KB2FjY291bnQYASABKAkSEgoKYWNjb3VudF9pZBgCIAEo",
+            "CRIRCglwbGF5ZXJfaWQYAyABKAkSDAoEbmFtZRgEIAEoCRINCgVsZXZlbBgF",
+            "IAEoBRIKCgJpcBgGIAEoCRIMCgRhcmVhGAcgASgFEhQKDGNyZWF0ZWRfdGlt",
+            "ZRgIIAEoBRIXCg9sYXN0X2xvZ2luX3RpbWUYCSABKAUSGQoRbGFzdF9vZmZs",
+            "aW5lX3RpbWUYCiABKAUSEAoIcGxhdGZvcm0YCyABKAkqfQoJUGxheWVyUlBD",
+            "EhMKD1BMQVlFUl9SUENfTk9ORRAAEhYKEUFDS19QTEFZRVJfT05MSU5FEOBd",
+            "EhcKEkFDS19QTEFZRVJfT0ZGTElORRDhXRIUCg9SRVFfUExBWUVSX0RBVEEQ",
+            "4l0SFAoPQUNLX1BMQVlFUl9EQVRBEONdYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Rpc.PlayerRPC), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.ReqPlayerData), global::Rpc.ReqPlayerData.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.AckPlayerData), global::Rpc.AckPlayerData.Parser, new[]{ "Account", "PlayerId", "Name", "Level" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.AckPlayerData), global::Rpc.AckPlayerData.Parser, new[]{ "Account", "AccountId", "PlayerId", "Name", "Level", "Ip", "Area", "CreatedTime", "LastLoginTime", "LastOfflineTime", "Platform" }, null, null, null, null)
           }));
     }
     #endregion
@@ -247,9 +250,16 @@ namespace Rpc {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AckPlayerData(AckPlayerData other) : this() {
       account_ = other.account_;
+      accountId_ = other.accountId_;
       playerId_ = other.playerId_;
       name_ = other.name_;
       level_ = other.level_;
+      ip_ = other.ip_;
+      area_ = other.area_;
+      createdTime_ = other.createdTime_;
+      lastLoginTime_ = other.lastLoginTime_;
+      lastOfflineTime_ = other.lastOfflineTime_;
+      platform_ = other.platform_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -261,22 +271,34 @@ namespace Rpc {
 
     /// <summary>Field number for the "account" field.</summary>
     public const int AccountFieldNumber = 1;
-    private pb::ByteString account_ = pb::ByteString.Empty;
+    private string account_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pb::ByteString Account {
+    public string Account {
       get { return account_; }
       set {
         account_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
-    /// <summary>Field number for the "player_id" field.</summary>
-    public const int PlayerIdFieldNumber = 2;
-    private pb::ByteString playerId_ = pb::ByteString.Empty;
+    /// <summary>Field number for the "account_id" field.</summary>
+    public const int AccountIdFieldNumber = 2;
+    private string accountId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pb::ByteString PlayerId {
+    public string AccountId {
+      get { return accountId_; }
+      set {
+        accountId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "player_id" field.</summary>
+    public const int PlayerIdFieldNumber = 3;
+    private string playerId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string PlayerId {
       get { return playerId_; }
       set {
         playerId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
@@ -284,11 +306,11 @@ namespace Rpc {
     }
 
     /// <summary>Field number for the "name" field.</summary>
-    public const int NameFieldNumber = 3;
-    private pb::ByteString name_ = pb::ByteString.Empty;
+    public const int NameFieldNumber = 4;
+    private string name_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pb::ByteString Name {
+    public string Name {
       get { return name_; }
       set {
         name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
@@ -296,7 +318,7 @@ namespace Rpc {
     }
 
     /// <summary>Field number for the "level" field.</summary>
-    public const int LevelFieldNumber = 4;
+    public const int LevelFieldNumber = 5;
     private int level_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -304,6 +326,78 @@ namespace Rpc {
       get { return level_; }
       set {
         level_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ip" field.</summary>
+    public const int IpFieldNumber = 6;
+    private string ip_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Ip {
+      get { return ip_; }
+      set {
+        ip_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "area" field.</summary>
+    public const int AreaFieldNumber = 7;
+    private int area_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Area {
+      get { return area_; }
+      set {
+        area_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "created_time" field.</summary>
+    public const int CreatedTimeFieldNumber = 8;
+    private int createdTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CreatedTime {
+      get { return createdTime_; }
+      set {
+        createdTime_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "last_login_time" field.</summary>
+    public const int LastLoginTimeFieldNumber = 9;
+    private int lastLoginTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int LastLoginTime {
+      get { return lastLoginTime_; }
+      set {
+        lastLoginTime_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "last_offline_time" field.</summary>
+    public const int LastOfflineTimeFieldNumber = 10;
+    private int lastOfflineTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int LastOfflineTime {
+      get { return lastOfflineTime_; }
+      set {
+        lastOfflineTime_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "platform" field.</summary>
+    public const int PlatformFieldNumber = 11;
+    private string platform_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Platform {
+      get { return platform_; }
+      set {
+        platform_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -323,9 +417,16 @@ namespace Rpc {
         return true;
       }
       if (Account != other.Account) return false;
+      if (AccountId != other.AccountId) return false;
       if (PlayerId != other.PlayerId) return false;
       if (Name != other.Name) return false;
       if (Level != other.Level) return false;
+      if (Ip != other.Ip) return false;
+      if (Area != other.Area) return false;
+      if (CreatedTime != other.CreatedTime) return false;
+      if (LastLoginTime != other.LastLoginTime) return false;
+      if (LastOfflineTime != other.LastOfflineTime) return false;
+      if (Platform != other.Platform) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -334,9 +435,16 @@ namespace Rpc {
     public override int GetHashCode() {
       int hash = 1;
       if (Account.Length != 0) hash ^= Account.GetHashCode();
+      if (AccountId.Length != 0) hash ^= AccountId.GetHashCode();
       if (PlayerId.Length != 0) hash ^= PlayerId.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (Level != 0) hash ^= Level.GetHashCode();
+      if (Ip.Length != 0) hash ^= Ip.GetHashCode();
+      if (Area != 0) hash ^= Area.GetHashCode();
+      if (CreatedTime != 0) hash ^= CreatedTime.GetHashCode();
+      if (LastLoginTime != 0) hash ^= LastLoginTime.GetHashCode();
+      if (LastOfflineTime != 0) hash ^= LastOfflineTime.GetHashCode();
+      if (Platform.Length != 0) hash ^= Platform.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -357,19 +465,47 @@ namespace Rpc {
     #else
       if (Account.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteBytes(Account);
+        output.WriteString(Account);
+      }
+      if (AccountId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(AccountId);
       }
       if (PlayerId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteBytes(PlayerId);
+        output.WriteRawTag(26);
+        output.WriteString(PlayerId);
       }
       if (Name.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteBytes(Name);
+        output.WriteRawTag(34);
+        output.WriteString(Name);
       }
       if (Level != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(40);
         output.WriteInt32(Level);
+      }
+      if (Ip.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(Ip);
+      }
+      if (Area != 0) {
+        output.WriteRawTag(56);
+        output.WriteInt32(Area);
+      }
+      if (CreatedTime != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(CreatedTime);
+      }
+      if (LastLoginTime != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(LastLoginTime);
+      }
+      if (LastOfflineTime != 0) {
+        output.WriteRawTag(80);
+        output.WriteInt32(LastOfflineTime);
+      }
+      if (Platform.Length != 0) {
+        output.WriteRawTag(90);
+        output.WriteString(Platform);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -383,19 +519,47 @@ namespace Rpc {
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       if (Account.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteBytes(Account);
+        output.WriteString(Account);
+      }
+      if (AccountId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(AccountId);
       }
       if (PlayerId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteBytes(PlayerId);
+        output.WriteRawTag(26);
+        output.WriteString(PlayerId);
       }
       if (Name.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteBytes(Name);
+        output.WriteRawTag(34);
+        output.WriteString(Name);
       }
       if (Level != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(40);
         output.WriteInt32(Level);
+      }
+      if (Ip.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(Ip);
+      }
+      if (Area != 0) {
+        output.WriteRawTag(56);
+        output.WriteInt32(Area);
+      }
+      if (CreatedTime != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(CreatedTime);
+      }
+      if (LastLoginTime != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(LastLoginTime);
+      }
+      if (LastOfflineTime != 0) {
+        output.WriteRawTag(80);
+        output.WriteInt32(LastOfflineTime);
+      }
+      if (Platform.Length != 0) {
+        output.WriteRawTag(90);
+        output.WriteString(Platform);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -408,16 +572,37 @@ namespace Rpc {
     public int CalculateSize() {
       int size = 0;
       if (Account.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeBytesSize(Account);
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Account);
+      }
+      if (AccountId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(AccountId);
       }
       if (PlayerId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeBytesSize(PlayerId);
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(PlayerId);
       }
       if (Name.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeBytesSize(Name);
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
       if (Level != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Level);
+      }
+      if (Ip.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Ip);
+      }
+      if (Area != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Area);
+      }
+      if (CreatedTime != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CreatedTime);
+      }
+      if (LastLoginTime != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(LastLoginTime);
+      }
+      if (LastOfflineTime != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(LastOfflineTime);
+      }
+      if (Platform.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Platform);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -434,6 +619,9 @@ namespace Rpc {
       if (other.Account.Length != 0) {
         Account = other.Account;
       }
+      if (other.AccountId.Length != 0) {
+        AccountId = other.AccountId;
+      }
       if (other.PlayerId.Length != 0) {
         PlayerId = other.PlayerId;
       }
@@ -442,6 +630,24 @@ namespace Rpc {
       }
       if (other.Level != 0) {
         Level = other.Level;
+      }
+      if (other.Ip.Length != 0) {
+        Ip = other.Ip;
+      }
+      if (other.Area != 0) {
+        Area = other.Area;
+      }
+      if (other.CreatedTime != 0) {
+        CreatedTime = other.CreatedTime;
+      }
+      if (other.LastLoginTime != 0) {
+        LastLoginTime = other.LastLoginTime;
+      }
+      if (other.LastOfflineTime != 0) {
+        LastOfflineTime = other.LastOfflineTime;
+      }
+      if (other.Platform.Length != 0) {
+        Platform = other.Platform;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -459,19 +665,47 @@ namespace Rpc {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            Account = input.ReadBytes();
+            Account = input.ReadString();
             break;
           }
           case 18: {
-            PlayerId = input.ReadBytes();
+            AccountId = input.ReadString();
             break;
           }
           case 26: {
-            Name = input.ReadBytes();
+            PlayerId = input.ReadString();
             break;
           }
-          case 32: {
+          case 34: {
+            Name = input.ReadString();
+            break;
+          }
+          case 40: {
             Level = input.ReadInt32();
+            break;
+          }
+          case 50: {
+            Ip = input.ReadString();
+            break;
+          }
+          case 56: {
+            Area = input.ReadInt32();
+            break;
+          }
+          case 64: {
+            CreatedTime = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            LastLoginTime = input.ReadInt32();
+            break;
+          }
+          case 80: {
+            LastOfflineTime = input.ReadInt32();
+            break;
+          }
+          case 90: {
+            Platform = input.ReadString();
             break;
           }
         }
@@ -490,19 +724,47 @@ namespace Rpc {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            Account = input.ReadBytes();
+            Account = input.ReadString();
             break;
           }
           case 18: {
-            PlayerId = input.ReadBytes();
+            AccountId = input.ReadString();
             break;
           }
           case 26: {
-            Name = input.ReadBytes();
+            PlayerId = input.ReadString();
             break;
           }
-          case 32: {
+          case 34: {
+            Name = input.ReadString();
+            break;
+          }
+          case 40: {
             Level = input.ReadInt32();
+            break;
+          }
+          case 50: {
+            Ip = input.ReadString();
+            break;
+          }
+          case 56: {
+            Area = input.ReadInt32();
+            break;
+          }
+          case 64: {
+            CreatedTime = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            LastLoginTime = input.ReadInt32();
+            break;
+          }
+          case 80: {
+            LastOfflineTime = input.ReadInt32();
+            break;
+          }
+          case 90: {
+            Platform = input.ReadString();
             break;
           }
         }

@@ -6,9 +6,9 @@ Unity版本: 2020.03 以上
 
 打开场景: Scenes/StartUp 运行
 
-version: 1.0
+version: 1.0.4
 
-[服务端 1.0](https://github.com/pwnsky/squick)
+[服务端 1.0.4](https://github.com/pwnsky/squick)
 
 
 

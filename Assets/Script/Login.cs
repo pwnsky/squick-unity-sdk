@@ -170,13 +170,14 @@ public class Login : MonoBehaviour
 
         // 拉取用户数据
         AckPlayerData ack = AckPlayerData.Parser.ParseFrom(ms);
-        Debug.Log("Name: " + ack.Name.ToStringUtf8() + " Level: " + ack.Level + " playerID: " + ack.PlayerId.ToStringUtf8());
+        Debug.Log("Name: " + ack.Name + " Level: " + ack.Level + " playerID: " + ack.PlayerId);
 
-        GameData.name = ack.Name.ToStringUtf8();
+        GameData.name = ack.Name;
         GameData.level = ack.Level;
-        GameData.playerID = ack.PlayerId.ToStringUtf8();
-        GameData.account = ack.Account.ToStringUtf8();
-
+        GameData.playerID = ack.PlayerId;
+        GameData.account = ack.Account;
+        GameData.ip = ack.Ip;
+        GameData.createdTime = ack.CreatedTime;
         // 拉取玩家信息
         SceneManager.LoadScene("Scenes/Lobby");
     }

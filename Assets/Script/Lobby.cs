@@ -14,6 +14,8 @@ public class Lobby : MonoBehaviour
     {
         string showText = "Account: " + GameData.account + "\nAccountID: " + GameData.accountID;
         showText += "\nplayerID: " + GameData.playerID + "\nName: " + GameData.name + "\nLevel: " + GameData.level;
+        showText += "\nCreatedTime: " + GameData.createdTime;
+        showText += "\nClientIP: " + GameData.ip;
         showText += "\nProxyHost: " + GameData.proxyIP + ": " + GameData.proxyPort;
         showText += "\n\nProxy connect key: " + GameData.proxyKey;
         showText += "\nLogin Url: " + GameData.loginURL;
