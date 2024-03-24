@@ -152,7 +152,7 @@ public class Login : MonoBehaviour
                 GameData.proxyPort = port;
 
                 // 连接代理服务器
-                Sqk.Net.Connect(ip, port, key, accountID);
+                Sqk.Net.Connect(ip, port, key, accountID, Sqk.Instance.rpcProtocolType);
             }
         }));
     }

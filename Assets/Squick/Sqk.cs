@@ -17,6 +17,7 @@ public class Sqk : MonoBehaviour
     public static PluginManager pm = null;
     public static ISEventModule Event = null;
     public static Sqk Instance = null;
+    public RpcProtocolType rpcProtocolType = RpcProtocolType.TcpSquickRPC;
 
     public IPluginManager GetPluginManager()
     {

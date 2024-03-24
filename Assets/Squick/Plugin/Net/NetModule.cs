@@ -85,13 +85,13 @@ namespace Squick
             AddReceiveCallBack((int)ProxyRPC.AckHeartbeat, OnAckHeatBeat);
         }
 
-        public bool Connect(string ip, int port, string key, string accountID)
+        public bool Connect(string ip, int port, string key, string accountID, RpcProtocolType rpcProtocolType)
         {
             this.key = key;
             this.accountID = accountID;
             Debug.Log(Time.realtimeSinceStartup.ToString() + " StartConnect " + ip + " " + port.ToString());
             mNetClient = new NetClient(mNetListener);
-            mNetClient.Connect(ip, port);
+            mNetClient.Connect(ip, port, rpcProtocolType);
             return true;
         }
 
@@ -177,7 +177,6 @@ namespace Squick
             }
         }
 
-       
 
         private void NetEventDelegation(NetEventType eventType)
         {

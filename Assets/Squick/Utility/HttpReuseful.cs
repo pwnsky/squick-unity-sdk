@@ -45,11 +45,12 @@ public class HttpRestful : MonoBehaviour
     {
         using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
-            if(cookie != "")
+
+            if(cookie != "" && Application.platform != RuntimePlatform.WebGLPlayer)
             {
                 request.SetRequestHeader("Cookie", cookie);
             }
-            
+
             yield return request.SendWebRequest();
 
             string resstr = "";
@@ -85,7 +86,8 @@ public class HttpRestful : MonoBehaviour
         {
             request.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(data));
             request.SetRequestHeader("Content-Type", "application/json;charset=utf-8");
-            if (cookie != "")
+            
+            if (cookie != "" && Application.platform != RuntimePlatform.WebGLPlayer)
             {
                 request.SetRequestHeader("Cookie", cookie);
             }

@@ -130,10 +130,19 @@ namespace Squick
 
 		public void OnDataReceived(NetEventParams eventParams)
 		{
-			mPacket.Push(eventParams.packet.Sb, eventParams.packet.Sb.Size());
-			eventParams.packet.Sb.Clear();
+			if(eventParams.protocolType == RpcProtocolType.TcpSquickRPC)
+			{
+                mPacket.Push(eventParams.packet.Sb, eventParams.packet.Sb.Size());
+                eventParams.packet.Sb.Clear();
+            }
+            else if(eventParams.protocolType == RpcProtocolType.WebSocketSquickRPC || eventParams.protocolType == RpcProtocolType.WebSocketSecuritySquickRPC)
+			{
+                mPacket.Push(eventParams.websocketPacket, eventParams.websocketPacket.Length);
+                NetClient.PrintBytes("OnDataReceived :231, Recv Bytes: ", eventParams.websocketPacket, eventParams.websocketPacket.Length);
+            }
+			
 
-			OnDataReceived();
+            OnDataReceived();
 		}
 
 		void OnDataReceived()

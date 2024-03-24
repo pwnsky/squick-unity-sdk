@@ -4,9 +4,21 @@ using System.IO;
 using System.Net.Sockets;
 using System.Threading;
 using UnityEngine;
+using NativeWebSocket;
+using System.Linq.Expressions;
+using Google.Protobuf;
+using System.Linq;
 
-namespace Squick
-{
+namespace Squick {
+
+    public enum RpcProtocolType
+    {
+        None,
+        TcpSquickRPC,
+        WebSocketSquickRPC,
+        WebSocketSecuritySquickRPC,
+    }
+
     public enum NetState
     {
         Connecting,
@@ -55,6 +67,7 @@ namespace Squick
              eventType = NetEventType.None;
              message = "";
              packet = null;
+            protocolType = RpcProtocolType.None;
         }
 
         public NetClient client = null;
@@ -63,6 +76,8 @@ namespace Squick
         public NetEventType eventType = NetEventType.None;
         public string message = "";
         public SocketPacket packet = null;
+        public RpcProtocolType protocolType = RpcProtocolType.None;
+        public byte[] websocketPacket;
 
     }
 	
@@ -70,7 +85,7 @@ namespace Squick
     {
         private string m_hostname;
         private int m_port;
-        void PrintBytes(string info, byte[] bytesData, int len)
+        public static void PrintBytes(string info, byte[] bytesData, int len)
         {
             string data = "";
             int id = bytesData[0] * 15 + bytesData[1];
@@ -78,8 +93,8 @@ namespace Squick
             {
                 data += bytesData[0 + i].ToString("X02") + ","; // .toString("x2"); 
             }
-            string prev = "NetDebug: server " + m_hostname + ":" + m_port + " ";
-            Debug.Log(prev + info + "  [" + data.ToString() + " ]");
+            //string prev; // = "NetDebug: server " + m_hostname + ":" + m_port + " ";
+            Debug.Log(info + "  [" + data.ToString() + " ]" + " length: " + len);
         }
 		public NetClient(NetListener xNetListener)
         {
@@ -95,6 +110,7 @@ namespace Squick
             mxMessages = new Queue<string>();
             mxPackets = new Queue<SocketPacket>();
             mxPacketPool = new Queue<SocketPacket>();
+            mxWebsocketPackets = new Queue<byte[]>();
         }
 
         private NetState mxState;
@@ -102,11 +118,14 @@ namespace Squick
         private StreamWriter mxWriter;
         private StreamReader mxReader;
         private Thread mxReadThread;
+        private RpcProtocolType protocolType;
         private TcpClient mxClient;
+        private WebSocket mxWebsocket;
         private Queue<NetEventType> mxEvents;
         private Queue<string> mxMessages;
         private Queue<SocketPacket> mxPackets;
         private Queue<SocketPacket> mxPacketPool;
+        private Queue<byte[]> mxWebsocketPackets;
 
         private NetListener mxNetListener;
 
@@ -132,18 +151,28 @@ namespace Squick
         public void Execute()
         {
 
+#if !UNITY_WEBGL || UNITY_EDITOR
+            if(mxWebsocket != null)
+            {
+                mxWebsocket.DispatchMessageQueue();
+            }
+#endif
+
             while (mxEvents.Count > 0)
             {
+                
                 lock (mxEvents)
                 {
                     if (mxEvents.Count > 0)
                     {
+                        
                         NetEventType eventType = mxEvents.Dequeue();
-
+                        Debug.Log("asdfjkasdfjasdf   " + eventType.ToString());
                         eventParams.Reset();
                         eventParams.eventType = eventType;
                         eventParams.client = this;
                         eventParams.socket = mxClient;
+                        eventParams.protocolType = protocolType;
 
                         if (eventType == NetEventType.Connected)
                         {
@@ -153,24 +182,38 @@ namespace Squick
                         {
                             mxNetListener.OnClientDisconnect(eventParams);
 
-                            mxReader.Close();
-                            mxWriter.Close();
-                            mxClient.Close();
+                            
+                            //mxReader.Close();
+                            //mxWriter.Close();
+                            //mxClient.Close();
 
                         }
                         else if (eventType == NetEventType.DataReceived)
                         {
-                            lock (mxPackets)
+                            if (protocolType == RpcProtocolType.TcpSquickRPC)
                             {
-                                if (mxPackets.Count > 0)
+                                lock (mxPackets)
                                 {
-                                    eventParams.packet = mxPackets.Dequeue();
-
-                                    mxNetListener.OnDataReceived(eventParams);
-
-                                    mxPacketPool.Enqueue(eventParams.packet);
+                                    if (mxPackets.Count > 0)
+                                    {
+                                        eventParams.packet = mxPackets.Dequeue();
+                                        mxNetListener.OnDataReceived(eventParams);
+                                        mxPacketPool.Enqueue(eventParams.packet);
+                                    }
+                                }
+                            } else if (protocolType == RpcProtocolType.WebSocketSquickRPC)
+                            {
+                                
+                                lock (mxWebsocketPackets)
+                                {
+                                    if (mxWebsocketPackets.Count > 0)
+                                    {
+                                        eventParams.websocketPacket = mxWebsocketPackets.Dequeue();
+                                        mxNetListener.OnDataReceived(eventParams);
+                                    }
                                 }
                             }
+
                         }
                         else if (eventType == NetEventType.ConnectionRefused)
                         {
@@ -181,11 +224,40 @@ namespace Squick
             }
         }
 
+        private void OnWebsocketOpen()
+        {
+            Debug.Log("On websocket open");
+            mxState = NetState.Connected;
+            mxEvents.Enqueue(NetEventType.Connected);
+        }
+
+        private void OnWebsocketError(string e)
+        {
+            Debug.Log("On websocket error");
+        }
+
+        private void OnWebsocketClose(WebSocketCloseCode e)
+        {
+            Debug.Log("On websocket close");
+        }
+
+        private void OnWebsocketMessage(byte[] data)
+        {
+            Debug.Log("On websocket message");
+            lock (mxWebsocketPackets)
+            {
+                mxWebsocketPackets.Enqueue(data);
+            }
+            lock (mxEvents)
+            {
+                mxEvents.Enqueue(NetEventType.DataReceived);
+            }
+        }
         private void ConnectCallback(IAsyncResult ar)
         {
+            Debug.Log("Tcp connected!");
             try
             {
-
                 TcpClient tcpClient = (TcpClient)ar.AsyncState;
                 tcpClient.EndConnect(ar);
 
@@ -200,6 +272,8 @@ namespace Squick
                 }
             }
         }
+
+
         private SocketPacket GetPacketFromPool()
         {
             if (mxPacketPool.Count <= 0)
@@ -223,7 +297,6 @@ namespace Squick
                {
                     Array.Clear(tempReadBytes, 0, ConstDefine.PACKET_BUFF_SIZE);
                     bytesRead = mxStream.Read(tempReadBytes, 0, ConstDefine.PACKET_BUFF_SIZE);
-                    PrintBytes("NetClient.cs:231, Recv Bytes: " ,tempReadBytes, bytesRead);
 
                 }
                catch (Exception e)
@@ -247,7 +320,6 @@ namespace Squick
                         packet.FromBytes(tempReadBytes, bytesRead);
                         mxPackets.Enqueue(packet);
                    }
-
                }
             }
 
@@ -261,29 +333,70 @@ namespace Squick
         }
 
         // Public
-        public void Connect(string hostname, int port)
+        public void Connect(string hostname, int port, RpcProtocolType rpcProtocolType)
         {
+            Debug.Log("connecting: " + hostname + ":" + port + " rpc type: " + rpcProtocolType);
             if (mxState == NetState.Connected)
             {
                 return;
             }
-
+            
             mxState = NetState.Connecting;
 
             mxMessages.Clear();
             mxEvents.Clear();
             m_hostname = hostname;
             m_port = port;
-            mxClient = new TcpClient();
-            mxClient.NoDelay = true;
-            mxClient.BeginConnect(hostname,
-                                 port,
-                                 new AsyncCallback(ConnectCallback),
-                                 mxClient);
+            protocolType = rpcProtocolType;
+            switch (protocolType)
+            {
+                case RpcProtocolType.TcpSquickRPC:
+                    {
+                        mxClient = new TcpClient();
+                        mxClient.NoDelay = true;
+                        mxClient.BeginConnect(hostname,
+                                             port,
+                                             new AsyncCallback(ConnectCallback),
+                                             mxClient);
+                    }
+                    break;
+                case RpcProtocolType.WebSocketSquickRPC:
+                    {
+                        port = 8888; // for test
+                        string webSocketURL = "ws://" + hostname + ":" + port;
+                        Debug.Log("Websocket connect: " + webSocketURL);
+                        mxWebsocket = new WebSocket(webSocketURL);
+                    }
+                    break;
+                case RpcProtocolType.WebSocketSecuritySquickRPC:
+                    {
+                        port = 8888; // for test
+                        string webSocketURL = "wss://" + hostname + ":" + port;
+                        mxWebsocket = new WebSocket(webSocketURL);
+                    }
+                    break;
+                
+                default:
+                    Debug.LogError("Not surrport this protocol type: " + protocolType);
+                    break;
+            }
+
+            if (mxWebsocket != null)
+            {
+                mxWebsocket.OnOpen += OnWebsocketOpen;
+                mxWebsocket.OnError += OnWebsocketError;
+                mxWebsocket.OnClose += OnWebsocketClose;
+                mxWebsocket.OnMessage += OnWebsocketMessage;
+                WebSocketConnect();
+            }
 
         }
+        public async void WebSocketConnect()
+        {
+            await mxWebsocket.Connect();
+        }
 
-        public void Disconnect()
+        public async void Disconnect()
         {
             mxState = NetState.Disconnected;
 
@@ -291,44 +404,109 @@ namespace Squick
             catch (Exception e) { e.ToString(); }
             try { if (mxWriter != null) mxWriter.Close(); }
             catch (Exception e) { e.ToString(); }
-            try { if (mxClient != null) mxClient.Close(); }
-            catch (Exception e) { e.ToString(); }
+            switch(protocolType)
+            {
+                case RpcProtocolType.TcpSquickRPC:
+                    {
+                        try { if (mxClient != null) mxClient.Close(); }
+                        catch (Exception e) { e.ToString(); }
+                    }
+                    break;
+                case RpcProtocolType.WebSocketSquickRPC:
+                    {
+                        try { if (mxWebsocket != null)  await mxWebsocket.Close(); }
+                        catch (Exception e) { e.ToString(); }
+                    }
+                    break;
+                case RpcProtocolType.WebSocketSecuritySquickRPC:
+                    {
+                        try { if (mxWebsocket != null) await mxWebsocket.Close(); }
+                        catch (Exception e) { e.ToString(); }
+                    }
+                    break;
+
+            }
+            
         }
 
         public void SendBytes(byte[] bytes, int length)
         {
-            SendBytes(bytes, 0, length);
-        }
-
-        private void SendBytes(byte[] bytes, int offset, int size)
-        {
-            PrintBytes( "NetClient.cs:316, Send Bytes: ", bytes, size);
+            PrintBytes( "NetClient.cs:375, Send Bytes: ", bytes, length);
             if (!IsConnected())
                 return;
-            try
-            {
-                mxStream.Write(bytes, offset, size);
-                mxStream.Flush();
-            }
-            catch (Exception e)
-            {
-                lock (mxEvents)
-                {
-                    mxEvents.Enqueue(NetEventType.Disconnected);
-                    Disconnect();
-                }
-            }
 
+            switch (protocolType)
+            {
+                case RpcProtocolType.TcpSquickRPC:
+                    {
+                        try
+                        {
+                            mxStream.Write(bytes, 0, length);
+                            mxStream.Flush();
+                        }
+                        catch (Exception e)
+                        {
+                            lock (mxEvents)
+                            {
+                                mxEvents.Enqueue(NetEventType.Disconnected);
+                                Disconnect();
+                            }
+                        }
+                    }
+                    break;
+                case RpcProtocolType.WebSocketSquickRPC:
+                    {
+                        try
+                        {
+                            if (mxWebsocket != null)
+                            {
+                                byte[] webSocketSend = new byte[length];
+                                Array.Copy(bytes, 0, webSocketSend, 0, length);
+                                mxWebsocket.Send(webSocketSend);
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            lock (mxEvents)
+                            {
+                                mxEvents.Enqueue(NetEventType.Disconnected);
+                                Disconnect();
+                            }
+                        }
+                    }
+                    break;
+                case RpcProtocolType.WebSocketSecuritySquickRPC:
+                    {
+                        try
+                        {
+                            if (mxWebsocket != null)
+                            {
+                                byte[] webSocketSend = new byte[length];
+                                Array.Copy(bytes, 0, webSocketSend, 0, length);
+                                mxWebsocket.Send(webSocketSend);
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            lock (mxEvents)
+                            {
+                                mxEvents.Enqueue(NetEventType.Disconnected);
+                                Disconnect();
+                            }
+                        }
+                            
+                    }
+                    break;
+            }
+            
         }
 
         private void SetTcpClient(TcpClient tcpClient)
         {
-
             mxClient = tcpClient;
 
             if (mxClient.Connected)
             {
-
                 mxStream = mxClient.GetStream();
                 mxReader = new StreamReader(mxStream);
                 mxWriter = new StreamWriter(mxStream);
