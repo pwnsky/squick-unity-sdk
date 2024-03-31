@@ -233,7 +233,7 @@ namespace Squick {
 
         private void OnWebsocketError(string e)
         {
-            Debug.Log("On websocket error");
+            Debug.Log("On websocket error: " + e.ToString());
         }
 
         private void OnWebsocketClose(WebSocketCloseCode e)
@@ -362,7 +362,6 @@ namespace Squick {
                     break;
                 case RpcProtocolType.WebSocketSquickRPC:
                     {
-                        port = 8888; // for test
                         string webSocketURL = "ws://" + hostname + ":" + port;
                         Debug.Log("Websocket connect: " + webSocketURL);
                         mxWebsocket = new WebSocket(webSocketURL);

@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using Rpc;
 using Google.Protobuf;
+using UnityEditor.Experimental.GraphView;
 
 public class Login : MonoBehaviour
 {
@@ -51,8 +52,8 @@ public class Login : MonoBehaviour
             data.Add("device_uuid", SystemInfo.deviceUniqueIdentifier);
             data.Add("platform", 0);
 
-            Debug.Log("请求: " + baseURL + "login");
-            HttpRestful.Instance.Post(baseURL + "login", data.ToString(), new Action<bool, string, UnityWebRequest>((ok, str, request) =>
+            Debug.Log("请求: " + baseURL + "/login");
+            HttpRestful.Instance.Post(baseURL + "/login", data.ToString(), new Action<bool, string, UnityWebRequest>((ok, str, request) =>
             {
                 if (ok)
                 {
@@ -65,7 +66,24 @@ public class Login : MonoBehaviour
                         HttpRestful.SetCookie(cookie); // 设置Cookie
                         GameData.loginCookie = cookie;
                         // 设置cookie
-                        ShowWorldList();
+
+                        GameData.accountID = (string)resJO["account_id"];
+                        GameData.proxyKey = (string)resJO["key"];
+                        GameData.proxyIP = (string)resJO["ip"];
+                        GameData.proxyPort = (int)resJO["port"];
+                        GameData.proxyWsPort = (int)resJO["ws_port"];
+
+                        int port = 0;
+                        if(Sqk.Instance.rpcProtocolType == RpcProtocolType.TcpSquickRPC)
+                        {
+                            port = GameData.proxyPort;
+                        }else if(Sqk.Instance.rpcProtocolType == RpcProtocolType.WebSocketSquickRPC)
+                        {
+                            port = GameData.proxyWsPort;
+                        }
+
+                        // 连接代理服务器
+                        Sqk.Net.Connect(GameData.proxyIP, port, GameData.proxyKey, GameData.accountID, Sqk.Instance.rpcProtocolType);
                     }
                 }
                 else
@@ -84,77 +102,6 @@ public class Login : MonoBehaviour
     void OnProxyDisconnected()
     {
         Debug.Log("代理断开连接");
-    }
-
-
-    // 选择大区
-    void ShowWorldList()
-    {
-        HttpRestful.Instance.Get(baseURL + "world/list", new Action<bool, string, UnityWebRequest>((ok, str, request) =>
-        {
-            Debug.Log("Recv: " + str);
-            if (ok)
-            {
-                JObject ret = JObject.Parse(str);
-                if ((int)ret["code"] == 0)
-                {
-                    loginPanel.SetActive(false);
-                    worldPanel.SetActive(true);
-                   
-                    // 设置cookie
-                    int index = 0;
-                    foreach (var s in ret["world"]) {
-                        //Debug.Log("WWW: " + s);
-                        GameObject button = GameObject.Instantiate(buttonPrefab, scrollViewContent.transform);
-                        RectTransform rect = button.GetComponent<RectTransform>();
-                        rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0.0f, 100.0f);
-                        rect.anchoredPosition = new UnityEngine.Vector2(0, -100 + (-100) * index);
-                        index++;
-                        button.transform.Find("Text").GetComponent<Text>().text = (string)s["name"];
-                        button.GetComponent<Button>().onClick.AddListener(() =>
-                        {
-                            int worldID = (int)s["id"];
-                            Debug.Log("Select : " + worldID);
-                            EnterWorld(worldID);
-                        });
-                    }
-
-                }
-
-            }
-            else
-            {
-
-            }
-        }));
-    }
-
-    // 进入区服
-    void EnterWorld(int worldID)
-    {
-        JObject p = new JObject();
-        p.Add("world_id", worldID);
-
-        HttpRestful.Instance.Post(baseURL + "world/enter", p.ToString(), new Action<bool, string, UnityWebRequest>((ok, str, request) =>
-        {
-            Debug.Log("Recv: " + str);
-            if (ok)
-            {
-                JObject ret = JObject.Parse(str);
-                string ip = (string)ret["ip"];
-                int port = (int)ret["port"];
-                string key = (string)ret["key"];
-                string accountID = (string)ret["account_id"];
-                
-                GameData.accountID = accountID;
-                GameData.proxyKey = key;
-                GameData.proxyIP = ip;
-                GameData.proxyPort = port;
-
-                // 连接代理服务器
-                Sqk.Net.Connect(ip, port, key, accountID, Sqk.Instance.rpcProtocolType);
-            }
-        }));
     }
 
     void OnPlayerOnline(int id, MemoryStream ms)
