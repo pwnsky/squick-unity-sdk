@@ -18,6 +18,8 @@ namespace Squick
 
         private string accountID;
         private string playerID;
+        private int loginNode;
+        private ulong signature;
         private string key;
         private long lastHeartBeatTime = 0;
         private bool isProxyAuthed = false;
@@ -85,10 +87,12 @@ namespace Squick
             AddReceiveCallBack((int)ProxyRPC.AckHeartbeat, OnAckHeatBeat);
         }
 
-        public bool Connect(string ip, int port, string key, string accountID, RpcProtocolType rpcProtocolType)
+        public bool Connect(string ip, int port, string key, string accountID, int loginNode, ulong signature, RpcProtocolType rpcProtocolType)
         {
             this.key = key;
             this.accountID = accountID;
+            this.signature = signature;
+            this.loginNode = loginNode;
             Debug.Log(Time.realtimeSinceStartup.ToString() + " StartConnect " + ip + " " + port.ToString());
             mNetClient = new NetClient(mNetListener);
             mNetClient.Connect(ip, port, rpcProtocolType);
@@ -99,8 +103,10 @@ namespace Squick
         {
             // 通过秘钥连接
             ReqConnectProxy req = new ReqConnectProxy();
-            req.Key = ByteString.CopyFromUtf8(key);
-            req.AccountId = ByteString.CopyFromUtf8(accountID);
+            req.Key = key;
+            req.AccountId = accountID;
+            req.LoginNode = loginNode;
+            req.Signatrue = signature;
             SendMsg((int)Rpc.ProxyRPC.ReqConnectProxy, req.ToByteString());
             mEvent.DoEvent("proxy", (int)ProxyEvent.CONNECTED);
             lastHeartBeatTime = DateTime.Now.Ticks / 10000;

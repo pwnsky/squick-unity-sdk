@@ -167,7 +167,6 @@ namespace Squick {
                     {
                         
                         NetEventType eventType = mxEvents.Dequeue();
-                        Debug.Log("asdfjkasdfjasdf   " + eventType.ToString());
                         eventParams.Reset();
                         eventParams.eventType = eventType;
                         eventParams.client = this;

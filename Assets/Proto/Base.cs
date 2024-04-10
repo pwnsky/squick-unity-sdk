@@ -27,18 +27,33 @@ namespace Rpc {
             "CgpiYXNlLnByb3RvEgNycGMiHwoHVmVjdG9yMhIJCgF4GAEgASgCEgkKAXkY",
             "AiABKAIiKgoHVmVjdG9yMxIJCgF4GAEgASgCEgkKAXkYAiABKAISCQoBehgD",
             "IAEoAiI1CgdWZWN0b3I0EgkKAXgYASABKAISCQoBeRgCIAEoAhIJCgF6GAMg",
-            "ASgCEgkKAXcYBCABKAJiBnByb3RvMw=="));
+            "ASgCEgkKAXcYBCABKAIi0QEKClBsYXllckRhdGESDwoHYWNjb3VudBgBIAEo",
+            "CRISCgphY2NvdW50X2lkGAIgASgJEgsKA3VpZBgDIAEoBBIMCgRuYW1lGAQg",
+            "ASgJEg0KBWxldmVsGAUgASgFEgoKAmlwGAYgASgJEgwKBGFyZWEYByABKAUS",
+            "FAoMY3JlYXRlZF90aW1lGAggASgFEhcKD2xhc3RfbG9naW5fdGltZRgJIAEo",
+            "BRIZChFsYXN0X29mZmxpbmVfdGltZRgKIAEoBRIQCghwbGF0Zm9ybRgLIAEo",
+            "CSoyCglFcnJvckNvZGUSEQoNRXJyQ29tbW9uU3VjYxAAEhIKDkVyckNvbW1v",
+            "bkZhaWxkEAFiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Rpc.ErrorCode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.Vector2), global::Rpc.Vector2.Parser, new[]{ "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.Vector3), global::Rpc.Vector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.Vector4), global::Rpc.Vector4.Parser, new[]{ "X", "Y", "Z", "W" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.Vector4), global::Rpc.Vector4.Parser, new[]{ "X", "Y", "Z", "W" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.PlayerData), global::Rpc.PlayerData.Parser, new[]{ "Account", "AccountId", "Uid", "Name", "Level", "Ip", "Area", "CreatedTime", "LastLoginTime", "LastOfflineTime", "Platform" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
+  #region Enums
+  public enum ErrorCode {
+    [pbr::OriginalName("ErrCommonSucc")] ErrCommonSucc = 0,
+    [pbr::OriginalName("ErrCommonFaild")] ErrCommonFaild = 1,
+  }
+
+  #endregion
+
   #region Messages
   public sealed partial class Vector2 : pb::IMessage<Vector2>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -820,6 +835,565 @@ namespace Rpc {
           }
           case 37: {
             W = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class PlayerData : pb::IMessage<PlayerData>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<PlayerData> _parser = new pb::MessageParser<PlayerData>(() => new PlayerData());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<PlayerData> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Rpc.BaseReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PlayerData() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PlayerData(PlayerData other) : this() {
+      account_ = other.account_;
+      accountId_ = other.accountId_;
+      uid_ = other.uid_;
+      name_ = other.name_;
+      level_ = other.level_;
+      ip_ = other.ip_;
+      area_ = other.area_;
+      createdTime_ = other.createdTime_;
+      lastLoginTime_ = other.lastLoginTime_;
+      lastOfflineTime_ = other.lastOfflineTime_;
+      platform_ = other.platform_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PlayerData Clone() {
+      return new PlayerData(this);
+    }
+
+    /// <summary>Field number for the "account" field.</summary>
+    public const int AccountFieldNumber = 1;
+    private string account_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Account {
+      get { return account_; }
+      set {
+        account_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "account_id" field.</summary>
+    public const int AccountIdFieldNumber = 2;
+    private string accountId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string AccountId {
+      get { return accountId_; }
+      set {
+        accountId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "uid" field.</summary>
+    public const int UidFieldNumber = 3;
+    private ulong uid_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ulong Uid {
+      get { return uid_; }
+      set {
+        uid_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 4;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "level" field.</summary>
+    public const int LevelFieldNumber = 5;
+    private int level_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Level {
+      get { return level_; }
+      set {
+        level_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ip" field.</summary>
+    public const int IpFieldNumber = 6;
+    private string ip_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Ip {
+      get { return ip_; }
+      set {
+        ip_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "area" field.</summary>
+    public const int AreaFieldNumber = 7;
+    private int area_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Area {
+      get { return area_; }
+      set {
+        area_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "created_time" field.</summary>
+    public const int CreatedTimeFieldNumber = 8;
+    private int createdTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CreatedTime {
+      get { return createdTime_; }
+      set {
+        createdTime_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "last_login_time" field.</summary>
+    public const int LastLoginTimeFieldNumber = 9;
+    private int lastLoginTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int LastLoginTime {
+      get { return lastLoginTime_; }
+      set {
+        lastLoginTime_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "last_offline_time" field.</summary>
+    public const int LastOfflineTimeFieldNumber = 10;
+    private int lastOfflineTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int LastOfflineTime {
+      get { return lastOfflineTime_; }
+      set {
+        lastOfflineTime_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "platform" field.</summary>
+    public const int PlatformFieldNumber = 11;
+    private string platform_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Platform {
+      get { return platform_; }
+      set {
+        platform_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as PlayerData);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(PlayerData other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Account != other.Account) return false;
+      if (AccountId != other.AccountId) return false;
+      if (Uid != other.Uid) return false;
+      if (Name != other.Name) return false;
+      if (Level != other.Level) return false;
+      if (Ip != other.Ip) return false;
+      if (Area != other.Area) return false;
+      if (CreatedTime != other.CreatedTime) return false;
+      if (LastLoginTime != other.LastLoginTime) return false;
+      if (LastOfflineTime != other.LastOfflineTime) return false;
+      if (Platform != other.Platform) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Account.Length != 0) hash ^= Account.GetHashCode();
+      if (AccountId.Length != 0) hash ^= AccountId.GetHashCode();
+      if (Uid != 0UL) hash ^= Uid.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (Level != 0) hash ^= Level.GetHashCode();
+      if (Ip.Length != 0) hash ^= Ip.GetHashCode();
+      if (Area != 0) hash ^= Area.GetHashCode();
+      if (CreatedTime != 0) hash ^= CreatedTime.GetHashCode();
+      if (LastLoginTime != 0) hash ^= LastLoginTime.GetHashCode();
+      if (LastOfflineTime != 0) hash ^= LastOfflineTime.GetHashCode();
+      if (Platform.Length != 0) hash ^= Platform.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Account.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Account);
+      }
+      if (AccountId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(AccountId);
+      }
+      if (Uid != 0UL) {
+        output.WriteRawTag(24);
+        output.WriteUInt64(Uid);
+      }
+      if (Name.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(Name);
+      }
+      if (Level != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(Level);
+      }
+      if (Ip.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(Ip);
+      }
+      if (Area != 0) {
+        output.WriteRawTag(56);
+        output.WriteInt32(Area);
+      }
+      if (CreatedTime != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(CreatedTime);
+      }
+      if (LastLoginTime != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(LastLoginTime);
+      }
+      if (LastOfflineTime != 0) {
+        output.WriteRawTag(80);
+        output.WriteInt32(LastOfflineTime);
+      }
+      if (Platform.Length != 0) {
+        output.WriteRawTag(90);
+        output.WriteString(Platform);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Account.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Account);
+      }
+      if (AccountId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(AccountId);
+      }
+      if (Uid != 0UL) {
+        output.WriteRawTag(24);
+        output.WriteUInt64(Uid);
+      }
+      if (Name.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(Name);
+      }
+      if (Level != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(Level);
+      }
+      if (Ip.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(Ip);
+      }
+      if (Area != 0) {
+        output.WriteRawTag(56);
+        output.WriteInt32(Area);
+      }
+      if (CreatedTime != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(CreatedTime);
+      }
+      if (LastLoginTime != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(LastLoginTime);
+      }
+      if (LastOfflineTime != 0) {
+        output.WriteRawTag(80);
+        output.WriteInt32(LastOfflineTime);
+      }
+      if (Platform.Length != 0) {
+        output.WriteRawTag(90);
+        output.WriteString(Platform);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Account.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Account);
+      }
+      if (AccountId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(AccountId);
+      }
+      if (Uid != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Uid);
+      }
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (Level != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Level);
+      }
+      if (Ip.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Ip);
+      }
+      if (Area != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Area);
+      }
+      if (CreatedTime != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CreatedTime);
+      }
+      if (LastLoginTime != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(LastLoginTime);
+      }
+      if (LastOfflineTime != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(LastOfflineTime);
+      }
+      if (Platform.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Platform);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(PlayerData other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Account.Length != 0) {
+        Account = other.Account;
+      }
+      if (other.AccountId.Length != 0) {
+        AccountId = other.AccountId;
+      }
+      if (other.Uid != 0UL) {
+        Uid = other.Uid;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
+      }
+      if (other.Level != 0) {
+        Level = other.Level;
+      }
+      if (other.Ip.Length != 0) {
+        Ip = other.Ip;
+      }
+      if (other.Area != 0) {
+        Area = other.Area;
+      }
+      if (other.CreatedTime != 0) {
+        CreatedTime = other.CreatedTime;
+      }
+      if (other.LastLoginTime != 0) {
+        LastLoginTime = other.LastLoginTime;
+      }
+      if (other.LastOfflineTime != 0) {
+        LastOfflineTime = other.LastOfflineTime;
+      }
+      if (other.Platform.Length != 0) {
+        Platform = other.Platform;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Account = input.ReadString();
+            break;
+          }
+          case 18: {
+            AccountId = input.ReadString();
+            break;
+          }
+          case 24: {
+            Uid = input.ReadUInt64();
+            break;
+          }
+          case 34: {
+            Name = input.ReadString();
+            break;
+          }
+          case 40: {
+            Level = input.ReadInt32();
+            break;
+          }
+          case 50: {
+            Ip = input.ReadString();
+            break;
+          }
+          case 56: {
+            Area = input.ReadInt32();
+            break;
+          }
+          case 64: {
+            CreatedTime = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            LastLoginTime = input.ReadInt32();
+            break;
+          }
+          case 80: {
+            LastOfflineTime = input.ReadInt32();
+            break;
+          }
+          case 90: {
+            Platform = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            Account = input.ReadString();
+            break;
+          }
+          case 18: {
+            AccountId = input.ReadString();
+            break;
+          }
+          case 24: {
+            Uid = input.ReadUInt64();
+            break;
+          }
+          case 34: {
+            Name = input.ReadString();
+            break;
+          }
+          case 40: {
+            Level = input.ReadInt32();
+            break;
+          }
+          case 50: {
+            Ip = input.ReadString();
+            break;
+          }
+          case 56: {
+            Area = input.ReadInt32();
+            break;
+          }
+          case 64: {
+            CreatedTime = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            LastLoginTime = input.ReadInt32();
+            break;
+          }
+          case 80: {
+            LastOfflineTime = input.ReadInt32();
+            break;
+          }
+          case 90: {
+            Platform = input.ReadString();
             break;
           }
         }

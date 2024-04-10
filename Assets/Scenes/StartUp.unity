@@ -246,9 +246,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c7bc2d8a02497840bcc01d3887ddd56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loginURL: http://127.0.0.1
+  loginURL: http://127.0.0.1:8088
   startScene: Scenes/Login
-  rpcProtocolType: 2
+  rpcProtocolType: 1
 --- !u!4 &452120744
 Transform:
   m_ObjectHideFlags: 0

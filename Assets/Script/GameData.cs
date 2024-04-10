@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameData 
 {
     public static string account = "";
-    public static string playerID = "";
+    public static ulong  uid = 0;
     public static string accountID = "";
     public static string name = "";
     public static int level = 0;

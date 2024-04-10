@@ -24,21 +24,22 @@ namespace Rpc {
     static ProxyReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cgtwcm94eS5wcm90bxIDcnBjGgpiYXNlLnByb3RvIjIKD1JlcUNvbm5lY3RQ",
-            "cm94eRISCgphY2NvdW50X2lkGAEgASgMEgsKA2tleRgCIAEoDCIfCg9BY2tD",
-            "b25uZWN0UHJveHkSDAoEY29kZRgBIAEoBSIUChJSZXFEaXNjb25uZWN0UHJv",
-            "eHkiIgoSQWNrRGlzY29ubmVjdFByb3h5EgwKBGNvZGUYASABKAUiHQoMUmVx",
-            "SGVhcnRCZWF0Eg0KBWluZGV4GAEgASgFIh0KDEFja0hlYXJ0QmVhdBINCgVp",
-            "bmRleBgBIAEoBSIaCgpBY2tLaWNrT2ZmEgwKBHRpbWUYASABKAMqvwEKCFBy",
-            "b3h5UlBDEhIKDlBST1hZX1JQQ19OT05FEAASEgoNUkVRX0hFQVJUQkVBVBDB",
-            "PhISCg1BQ0tfSEVBUlRCRUFUEMI+EhYKEVJFUV9DT05ORUNUX1BST1hZEMM+",
-            "EhYKEUFDS19DT05ORUNUX1BST1hZEMQ+EhkKFFJFUV9ESVNDT05ORUNUX1BS",
-            "T1hZEMU+EhkKFEFDS19ESVNDT05ORUNUX1BST1hZEMY+EhEKDEFDS19LSUNL",
-            "X09GRhDKPmIGcHJvdG8z"));
+            "Cgtwcm94eS5wcm90bxIDcnBjGgpiYXNlLnByb3RvIlkKD1JlcUNvbm5lY3RQ",
+            "cm94eRISCgphY2NvdW50X2lkGAEgASgJEgsKA2tleRgCIAEoCRISCgpsb2dp",
+            "bl9ub2RlGAMgASgFEhEKCXNpZ25hdHJ1ZRgEIAEoBCIfCg9BY2tDb25uZWN0",
+            "UHJveHkSDAoEY29kZRgBIAEoBSIUChJSZXFEaXNjb25uZWN0UHJveHkiIgoS",
+            "QWNrRGlzY29ubmVjdFByb3h5EgwKBGNvZGUYASABKAUiHQoMUmVxSGVhcnRC",
+            "ZWF0Eg0KBWluZGV4GAEgASgFIh0KDEFja0hlYXJ0QmVhdBINCgVpbmRleBgB",
+            "IAEoBSIaCgpBY2tLaWNrT2ZmEgwKBHRpbWUYASABKAMqwgEKCFByb3h5UlBD",
+            "EhIKDlBST1hZX1JQQ19OT05FEAASEgoNUkVRX0hFQVJUQkVBVBDBPhISCg1B",
+            "Q0tfSEVBUlRCRUFUEMI+EhYKEVJFUV9DT05ORUNUX1BST1hZEMM+EhYKEUFD",
+            "S19DT05ORUNUX1BST1hZEMQ+EhkKFFJFUV9ESVNDT05ORUNUX1BST1hZEMU+",
+            "EhkKFEFDS19ESVNDT05ORUNUX1BST1hZEMY+EhQKD05DX0FDS19LSUNLX09G",
+            "RhDKPmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Rpc.BaseReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Rpc.ProxyRPC), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.ReqConnectProxy), global::Rpc.ReqConnectProxy.Parser, new[]{ "AccountId", "Key" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.ReqConnectProxy), global::Rpc.ReqConnectProxy.Parser, new[]{ "AccountId", "Key", "LoginNode", "Signatrue" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.AckConnectProxy), global::Rpc.AckConnectProxy.Parser, new[]{ "Code" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.ReqDisconnectProxy), global::Rpc.ReqDisconnectProxy.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.AckDisconnectProxy), global::Rpc.AckDisconnectProxy.Parser, new[]{ "Code" }, null, null, null, null),
@@ -71,7 +72,7 @@ namespace Rpc {
     /// <summary>
     /// 被踢下线
     /// </summary>
-    [pbr::OriginalName("ACK_KICK_OFF")] AckKickOff = 8010,
+    [pbr::OriginalName("NC_ACK_KICK_OFF")] NcAckKickOff = 8010,
   }
 
   #endregion
@@ -113,6 +114,8 @@ namespace Rpc {
     public ReqConnectProxy(ReqConnectProxy other) : this() {
       accountId_ = other.accountId_;
       key_ = other.key_;
+      loginNode_ = other.loginNode_;
+      signatrue_ = other.signatrue_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -124,10 +127,10 @@ namespace Rpc {
 
     /// <summary>Field number for the "account_id" field.</summary>
     public const int AccountIdFieldNumber = 1;
-    private pb::ByteString accountId_ = pb::ByteString.Empty;
+    private string accountId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pb::ByteString AccountId {
+    public string AccountId {
       get { return accountId_; }
       set {
         accountId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
@@ -136,13 +139,37 @@ namespace Rpc {
 
     /// <summary>Field number for the "key" field.</summary>
     public const int KeyFieldNumber = 2;
-    private pb::ByteString key_ = pb::ByteString.Empty;
+    private string key_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pb::ByteString Key {
+    public string Key {
       get { return key_; }
       set {
         key_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "login_node" field.</summary>
+    public const int LoginNodeFieldNumber = 3;
+    private int loginNode_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int LoginNode {
+      get { return loginNode_; }
+      set {
+        loginNode_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "signatrue" field.</summary>
+    public const int SignatrueFieldNumber = 4;
+    private ulong signatrue_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ulong Signatrue {
+      get { return signatrue_; }
+      set {
+        signatrue_ = value;
       }
     }
 
@@ -163,6 +190,8 @@ namespace Rpc {
       }
       if (AccountId != other.AccountId) return false;
       if (Key != other.Key) return false;
+      if (LoginNode != other.LoginNode) return false;
+      if (Signatrue != other.Signatrue) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -172,6 +201,8 @@ namespace Rpc {
       int hash = 1;
       if (AccountId.Length != 0) hash ^= AccountId.GetHashCode();
       if (Key.Length != 0) hash ^= Key.GetHashCode();
+      if (LoginNode != 0) hash ^= LoginNode.GetHashCode();
+      if (Signatrue != 0UL) hash ^= Signatrue.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -192,11 +223,19 @@ namespace Rpc {
     #else
       if (AccountId.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteBytes(AccountId);
+        output.WriteString(AccountId);
       }
       if (Key.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteBytes(Key);
+        output.WriteString(Key);
+      }
+      if (LoginNode != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(LoginNode);
+      }
+      if (Signatrue != 0UL) {
+        output.WriteRawTag(32);
+        output.WriteUInt64(Signatrue);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -210,11 +249,19 @@ namespace Rpc {
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       if (AccountId.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteBytes(AccountId);
+        output.WriteString(AccountId);
       }
       if (Key.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteBytes(Key);
+        output.WriteString(Key);
+      }
+      if (LoginNode != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(LoginNode);
+      }
+      if (Signatrue != 0UL) {
+        output.WriteRawTag(32);
+        output.WriteUInt64(Signatrue);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -227,10 +274,16 @@ namespace Rpc {
     public int CalculateSize() {
       int size = 0;
       if (AccountId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeBytesSize(AccountId);
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(AccountId);
       }
       if (Key.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeBytesSize(Key);
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Key);
+      }
+      if (LoginNode != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(LoginNode);
+      }
+      if (Signatrue != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Signatrue);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -250,6 +303,12 @@ namespace Rpc {
       if (other.Key.Length != 0) {
         Key = other.Key;
       }
+      if (other.LoginNode != 0) {
+        LoginNode = other.LoginNode;
+      }
+      if (other.Signatrue != 0UL) {
+        Signatrue = other.Signatrue;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -266,11 +325,19 @@ namespace Rpc {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            AccountId = input.ReadBytes();
+            AccountId = input.ReadString();
             break;
           }
           case 18: {
-            Key = input.ReadBytes();
+            Key = input.ReadString();
+            break;
+          }
+          case 24: {
+            LoginNode = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            Signatrue = input.ReadUInt64();
             break;
           }
         }
@@ -289,11 +356,19 @@ namespace Rpc {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            AccountId = input.ReadBytes();
+            AccountId = input.ReadString();
             break;
           }
           case 18: {
-            Key = input.ReadBytes();
+            Key = input.ReadString();
+            break;
+          }
+          case 24: {
+            LoginNode = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            Signatrue = input.ReadUInt64();
             break;
           }
         }

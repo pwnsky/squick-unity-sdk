@@ -16,14 +16,7 @@ public class Login : MonoBehaviour
     public Text account;
     public Text password;
     public Button login;
-
     public GameObject loginPanel;
-    public GameObject worldPanel;
-
-    public GameObject scrollViewContent;
-
-    public GameObject buttonPrefab;
-
     string baseURL = "";
 
     enum LoginEvent
@@ -39,8 +32,7 @@ public class Login : MonoBehaviour
 
         // 绑定登录事件
         Sqk.Event.BindEvent("proxy", (int)NetModule.ProxyEvent.AUTH_SUCCESS, OnProxyAuthSuccess);
-        Sqk.Net.AddReceiveCallBack((int)PlayerRPC.AckPlayerOnline, OnPlayerOnline);
-        Sqk.Net.AddReceiveCallBack((int)PlayerRPC.AckPlayerData, OnAckPlayerData);
+        Sqk.Net.AddReceiveCallBack((int)PlayerRPC.AckPlayerEnter, OnAckPlayerEnter);
 
         login.onClick.AddListener(() =>
         {
@@ -83,7 +75,7 @@ public class Login : MonoBehaviour
                         }
 
                         // 连接代理服务器
-                        Sqk.Net.Connect(GameData.proxyIP, port, GameData.proxyKey, GameData.accountID, Sqk.Instance.rpcProtocolType);
+                        Sqk.Net.Connect(GameData.proxyIP, port, GameData.proxyKey, GameData.accountID, (int)resJO["login_node"], (ulong)resJO["signatrue"],Sqk.Instance.rpcProtocolType);
                     }
                 }
                 else
@@ -97,6 +89,7 @@ public class Login : MonoBehaviour
     void OnProxyAuthSuccess()
     {
         Debug.Log("代理授权连接成功");
+        ReqEnterGame();
     }
 
     void OnProxyDisconnected()
@@ -104,27 +97,25 @@ public class Login : MonoBehaviour
         Debug.Log("代理断开连接");
     }
 
-    void OnPlayerOnline(int id, MemoryStream ms)
+    void ReqEnterGame()
     {
-        Debug.Log(" 玩家在线, 正在拉取玩家数据 ");
-        ReqPlayerData req = new ReqPlayerData();
-        Sqk.Net.SendMsg((int)PlayerRPC.ReqPlayerData, req.ToByteString());
+        ReqPlayerEnter req = new ReqPlayerEnter();
+        Sqk.Net.SendMsg((int)PlayerRPC.ReqPlayerEnter, req.ToByteString());
     }
 
-    void OnAckPlayerData(int id, MemoryStream ms)
+    void OnAckPlayerEnter(int id, MemoryStream ms)
     {
-        Debug.Log(" 获取到玩家数据 ");
-
+        Debug.Log("Player enter");
         // 拉取用户数据
-        AckPlayerData ack = AckPlayerData.Parser.ParseFrom(ms);
-        Debug.Log("Name: " + ack.Name + " Level: " + ack.Level + " playerID: " + ack.PlayerId);
+        AckPlayerEnter ack = AckPlayerEnter.Parser.ParseFrom(ms);
+        Debug.Log("Name: " + ack.Data.Name + " Level: " + ack.Data.Level + " playerID: " + ack.Data.Uid);
 
-        GameData.name = ack.Name;
-        GameData.level = ack.Level;
-        GameData.playerID = ack.PlayerId;
-        GameData.account = ack.Account;
-        GameData.ip = ack.Ip;
-        GameData.createdTime = ack.CreatedTime;
+        GameData.name = ack.Data.Name;
+        GameData.level = ack.Data.Level;
+        GameData.uid = ack.Data.Uid;
+        GameData.account = ack.Data.Account;
+        GameData.ip = ack.Data.Ip;
+        GameData.createdTime = ack.Data.CreatedTime;
         // 拉取玩家信息
         SceneManager.LoadScene("Scenes/Lobby");
     }
