@@ -248,7 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loginURL: http://127.0.0.1:8088
   startScene: Scenes/Login
-  rpcProtocolType: 1
+  rpcProtocolType: 2
 --- !u!4 &452120744
 Transform:
   m_ObjectHideFlags: 0
