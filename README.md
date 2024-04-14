@@ -14,33 +14,43 @@ version: 1.1.0
 
 ## Feature
 
+Keep it simple, Just a network library.
+
 Surport TCP or Websocket connection with squick
 
 So you can build you project to web applicaiton.
 
 
 
-### Quick Start
+## Quick Start
+
+### Step 1. Modify Login URL & Protocol type
 
 Open project, make sure your **all scenes is loaded in Build Settings**
 
-![image-20240414183421281](Doc./Images/image-20240414183421281.png)
+![image-20240414183421281](./Doc/Images/image-20240414183421281.png)
 
 Open start up scene: **/Assets/Scenes/StartUp.unity**
 
 
 
-In Hireachy panel select **Sqk** object. Then you can modify **Login URL** and **Rpc Protocol Type** in Inspector panel. Default info mation as follows.
+In Hireachy panel select **Sqk** object. Then you can modify **Login URL** and **Rpc Protocol Type** in Inspector panel. Default infomation as follows.
 
 ![image-20240414183307921](./Doc/Images/image-20240414183307921.png)
 
+The **Login URL** is squick login node URL.  this node default http port is 8088
+
+The **Rpc Protocol Type** now surported **TCP Squick RPC** & **Web Socket Squick RPC**, But the **Web Socket Security Squick RPC** now squick not surpport it.
 
 
-Start project
+
+### Step 2. Start project
 
 ![image-20240414183307921](./Doc/Images/Snipaste_2024-04-14_18-37-03.png)
 
 
+
+### Step 3. Login Succ
 
 Login Succ infomation.
 
