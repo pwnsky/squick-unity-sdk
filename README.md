@@ -1,56 +1,55 @@
 # Squick Unity SDK
 
-squick Unity引擎SDK
+## Intro
 
-Unity版本: 2020.03 以上
+The squick Unity SDK
 
-打开场景: Scenes/StartUp 运行
+Unity version: 2020.03 above
 
 version: 1.1.0
 
-[服务端](https://github.com/pwnsky/squick)
+[Squick Src](https://github.com/pwnsky/squick)
 
 
 
-## 功能
+## Feature
 
-### 登录
+Surport TCP or Websocket connection with squick
 
-
-
-### 连接代理服务器
+So you can build you project to web applicaiton.
 
 
 
-### 逻辑交互
+### Quick Start
+
+Open project, make sure your **all scenes is loaded in Build Settings**
+
+![image-20240414183421281](Doc./Images/image-20240414183421281.png)
+
+Open start up scene: **/Assets/Scenes/StartUp.unity**
 
 
 
+In Hireachy panel select **Sqk** object. Then you can modify **Login URL** and **Rpc Protocol Type** in Inspector panel. Default info mation as follows.
 
-
-## 项目结构介绍
-
-
-
-```
-Assets/
-├── Lib # 常用库，放json和protobuf序列化相关的dll
-│   ├── Newtonsoft.Json
-│   └── Protobuf
-├── Prefab # demo中用到的预制体
-├── Proto  # 根据proto文件生成的protobuf代码文件, 由后端squick工具生成
-├── Scenes # demo 中所用到的场景
-├── Script # demo 中的脚本
-├── Squick # squick sdk 核心代码
-│   ├── Base
-│   ├── Core
-│   │   └── Math
-│   ├── Plugin
-│   │   ├── Event
-│   │   └── Net
-│   ├── PluginManager
-│   └── Utility
-```
+![image-20240414183307921](./Doc/Images/image-20240414183307921.png)
 
 
 
+Start project
+
+![image-20240414183307921](./Doc/Images/Snipaste_2024-04-14_18-37-03.png)
+
+
+
+Login Succ infomation.
+
+![image-20240414183307921](./Doc/Images/Snipaste_2024-04-14_18-37-21.png)
+
+
+
+The server login succ infomation.
+
+![image-20240414183307921](./Doc/Images/Snipaste_2024-04-14_18-37-40.png)
+
+That's all, Just so so!
