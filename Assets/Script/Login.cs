@@ -31,7 +31,7 @@ public class Login : MonoBehaviour
 
         // 绑定登录事件
         Sqk.Event.BindEvent("proxy", (int)NetModule.ProxyEvent.AUTH_SUCCESS, OnProxyAuthSuccess);
-        Sqk.Net.AddReceiveCallBack((int)PlayerRPC.AckPlayerEnter, OnAckPlayerEnter);
+        Sqk.Net.AddReceiveCallBack(MsgId.IdAckPlayerEnter, OnAckPlayerEnter);
 
         login.onClick.AddListener(() =>
         {
@@ -99,7 +99,7 @@ public class Login : MonoBehaviour
     void ReqEnterGame()
     {
         ReqPlayerEnter req = new ReqPlayerEnter();
-        Sqk.Net.SendMsg((int)PlayerRPC.ReqPlayerEnter, req.ToByteString());
+        Sqk.Net.SendMsg(MsgId.IdReqPlayerEnter, req.ToByteString());
     }
 
     void OnAckPlayerEnter(int id, MemoryStream ms)

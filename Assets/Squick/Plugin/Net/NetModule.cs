@@ -83,8 +83,8 @@ namespace Squick
 		public override void AfterStart()
 		{
             mEvent.BindEvent("net", (int)NetEventType.Connected, OnConnected);
-            AddReceiveCallBack((int)ProxyRPC.AckConnectProxy, OnAckConnectProxy);
-            AddReceiveCallBack((int)ProxyRPC.AckHeartbeat, OnAckHeatBeat);
+            AddReceiveCallBack(MsgId.IdAckConnectProxy, OnAckConnectProxy);
+            AddReceiveCallBack(MsgId.IdAckHeartBeat, OnAckHeatBeat);
         }
 
         public bool Connect(string ip, int port, string key, string accountID, int loginNode, ulong signature, RpcProtocolType rpcProtocolType)
@@ -107,7 +107,7 @@ namespace Squick
             req.AccountId = accountID;
             req.LoginNode = loginNode;
             req.Signatrue = signature;
-            SendMsg((int)Rpc.ProxyRPC.ReqConnectProxy, req.ToByteString());
+            SendMsg(MsgId.IdReqConnectProxy, req.ToByteString());
             mEvent.DoEvent("proxy", (int)ProxyEvent.CONNECTED);
             lastHeartBeatTime = DateTime.Now.Ticks / 10000;
         }
@@ -134,7 +134,7 @@ namespace Squick
             ReqHeartBeat req = new ReqHeartBeat();
             req.Index = heartBeatIndex;
             heartBeatIndex++;
-            SendMsg((int)Rpc.ProxyRPC.ReqHeartbeat, req.ToByteString());
+            SendMsg(MsgId.IdReqHeartBeat, req.ToByteString());
         }
         public void OnAckHeatBeat(int id, MemoryStream ms)
         {
@@ -152,9 +152,9 @@ namespace Squick
             return mNetClient.GetState();
         }
 
-		public void AddReceiveCallBack(int eMsg, Squick.NetListener.MsgDelegation netHandler)
+		public void AddReceiveCallBack(MsgId eMsg, Squick.NetListener.MsgDelegation netHandler)
         {
-            mNetListener.RegisteredDelegation(eMsg, netHandler);
+            mNetListener.RegisteredDelegation((int)eMsg, netHandler);
         }
   
 		public void AddNetEventCallBack(Squick.NetListener.EventDelegation netHandler)
@@ -162,14 +162,14 @@ namespace Squick
 			mNetListener.RegisteredNetEventHandler(netHandler);
         }
 
-        public void SendMsg(int unMsgID, ByteString data)
+        public void SendMsg(MsgId msgId, ByteString data)
         {
             if (mNetClient != null)
             {
                 mxBody.SetLength(0);
                 data.WriteTo(mxBody);
 
-                mxHead.unMsgID = (UInt16)unMsgID;
+                mxHead.unMsgID = (UInt16)msgId;
                 mxHead.unDataLen = (UInt32)mxBody.Length + (UInt32)ConstDefine.PACKET_HEAD_SIZE;
 
                 byte[] bodyByte = mxBody.ToArray();
@@ -178,7 +178,7 @@ namespace Squick
                 Array.Clear(sendBytes, 0, ConstDefine.PACKET_BUFF_SIZE);
                 headByte.CopyTo(sendBytes, 0);
                 bodyByte.CopyTo(sendBytes, headByte.Length);
-                Debug.Log(" MsgID: " + unMsgID);
+                Debug.Log(" MsgID: " + msgId);
                 mNetClient.SendBytes(sendBytes, bodyByte.Length + headByte.Length);
             }
         }

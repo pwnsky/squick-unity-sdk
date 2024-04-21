@@ -33,14 +33,10 @@ namespace Rpc {
             "AyABKAsyDy5ycGMuUGxheWVyRGF0YSIQCg5SZXFQbGF5ZXJMZWF2ZSIQCg5B",
             "Y2tQbGF5ZXJMZWF2ZSIPCg1SZXFQbGF5ZXJEYXRhIjwKDUFja1BsYXllckRh",
             "dGESDAoEY29kZRgBIAEoBRIdCgRkYXRhGAIgASgLMg8ucnBjLlBsYXllckRh",
-            "dGEqqAEKCVBsYXllclJQQxITCg9QTEFZRVJfUlBDX05PTkUQABIVChBSRVFf",
-            "UExBWUVSX0VOVEVSEORdEhUKEEFDS19QTEFZRVJfRU5URVIQ5V0SFQoQUkVR",
-            "X1BMQVlFUl9MRUFWRRDmXRIVChBBQ0tfUExBWUVSX0xFQVZFEOddEhQKD1JF",
-            "UV9QTEFZRVJfREFUQRDiXRIUCg9BQ0tfUExBWUVSX0RBVEEQ411iBnByb3Rv",
-            "Mw=="));
+            "dGFiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Rpc.BaseReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Rpc.PlayerRPC), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.ReqPlayerEnter), global::Rpc.ReqPlayerEnter.Parser, new[]{ "Account", "AccountId", "Ip", "ProxyNode", "LoginNode", "Protocol", "Area", "Platform", "ProxySock" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.AckPlayerEnter), global::Rpc.AckPlayerEnter.Parser, new[]{ "Code", "ProxySock", "Data" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.ReqPlayerLeave), global::Rpc.ReqPlayerLeave.Parser, null, null, null, null, null),
@@ -52,28 +48,10 @@ namespace Rpc {
     #endregion
 
   }
-  #region Enums
-  /// <summary>
-  /// PlayerRPC 12000 ~ 15000
-  /// </summary>
-  public enum PlayerRPC {
-    [pbr::OriginalName("PLAYER_RPC_NONE")] None = 0,
-    [pbr::OriginalName("REQ_PLAYER_ENTER")] ReqPlayerEnter = 12004,
-    [pbr::OriginalName("ACK_PLAYER_ENTER")] AckPlayerEnter = 12005,
-    [pbr::OriginalName("REQ_PLAYER_LEAVE")] ReqPlayerLeave = 12006,
-    [pbr::OriginalName("ACK_PLAYER_LEAVE")] AckPlayerLeave = 12007,
-    /// <summary>
-    /// 获取玩家详细全部数据
-    /// </summary>
-    [pbr::OriginalName("REQ_PLAYER_DATA")] ReqPlayerData = 12002,
-    /// <summary>
-    /// </summary>
-    [pbr::OriginalName("ACK_PLAYER_DATA")] AckPlayerData = 12003,
-  }
-
-  #endregion
-
   #region Messages
+  /// <summary>
+  /// msg_id=12004;
+  /// </summary>
   public sealed partial class ReqPlayerEnter : pb::IMessage<ReqPlayerEnter>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -559,6 +537,9 @@ namespace Rpc {
 
   }
 
+  /// <summary>
+  /// msg_id=12005;
+  /// </summary>
   public sealed partial class AckPlayerEnter : pb::IMessage<AckPlayerEnter>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -831,6 +812,9 @@ namespace Rpc {
 
   }
 
+  /// <summary>
+  /// msg_id=12006;
+  /// </summary>
   public sealed partial class ReqPlayerLeave : pb::IMessage<ReqPlayerLeave>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -983,6 +967,9 @@ namespace Rpc {
 
   }
 
+  /// <summary>
+  /// msg_id=12007;
+  /// </summary>
   public sealed partial class AckPlayerLeave : pb::IMessage<AckPlayerLeave>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1135,6 +1122,9 @@ namespace Rpc {
 
   }
 
+  /// <summary>
+  /// msg_id=12008;
+  /// </summary>
   public sealed partial class ReqPlayerData : pb::IMessage<ReqPlayerData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1287,6 +1277,9 @@ namespace Rpc {
 
   }
 
+  /// <summary>
+  /// msg_id=12009;
+  /// </summary>
   public sealed partial class AckPlayerData : pb::IMessage<AckPlayerData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage

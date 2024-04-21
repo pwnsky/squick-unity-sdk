@@ -30,15 +30,10 @@ namespace Rpc {
             "UHJveHkSDAoEY29kZRgBIAEoBSIUChJSZXFEaXNjb25uZWN0UHJveHkiIgoS",
             "QWNrRGlzY29ubmVjdFByb3h5EgwKBGNvZGUYASABKAUiHQoMUmVxSGVhcnRC",
             "ZWF0Eg0KBWluZGV4GAEgASgFIh0KDEFja0hlYXJ0QmVhdBINCgVpbmRleBgB",
-            "IAEoBSIaCgpBY2tLaWNrT2ZmEgwKBHRpbWUYASABKAMqwgEKCFByb3h5UlBD",
-            "EhIKDlBST1hZX1JQQ19OT05FEAASEgoNUkVRX0hFQVJUQkVBVBDBPhISCg1B",
-            "Q0tfSEVBUlRCRUFUEMI+EhYKEVJFUV9DT05ORUNUX1BST1hZEMM+EhYKEUFD",
-            "S19DT05ORUNUX1BST1hZEMQ+EhkKFFJFUV9ESVNDT05ORUNUX1BST1hZEMU+",
-            "EhkKFEFDS19ESVNDT05ORUNUX1BST1hZEMY+EhQKD05DX0FDS19LSUNLX09G",
-            "RhDKPmIGcHJvdG8z"));
+            "IAEoBSIaCgpBY2tLaWNrT2ZmEgwKBHRpbWUYASABKANiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Rpc.BaseReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Rpc.ProxyRPC), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.ReqConnectProxy), global::Rpc.ReqConnectProxy.Parser, new[]{ "AccountId", "Key", "LoginNode", "Signatrue" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.AckConnectProxy), global::Rpc.AckConnectProxy.Parser, new[]{ "Code" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Rpc.ReqDisconnectProxy), global::Rpc.ReqDisconnectProxy.Parser, null, null, null, null, null),
@@ -51,33 +46,10 @@ namespace Rpc {
     #endregion
 
   }
-  #region Enums
-  /// <summary>
-  /// 8000 ~ 10000
-  /// </summary>
-  public enum ProxyRPC {
-    [pbr::OriginalName("PROXY_RPC_NONE")] None = 0,
-    /// <summary>
-    /// 心跳包
-    /// </summary>
-    [pbr::OriginalName("REQ_HEARTBEAT")] ReqHeartbeat = 8001,
-    /// <summary>
-    /// 代理服务器响应
-    /// </summary>
-    [pbr::OriginalName("ACK_HEARTBEAT")] AckHeartbeat = 8002,
-    [pbr::OriginalName("REQ_CONNECT_PROXY")] ReqConnectProxy = 8003,
-    [pbr::OriginalName("ACK_CONNECT_PROXY")] AckConnectProxy = 8004,
-    [pbr::OriginalName("REQ_DISCONNECT_PROXY")] ReqDisconnectProxy = 8005,
-    [pbr::OriginalName("ACK_DISCONNECT_PROXY")] AckDisconnectProxy = 8006,
-    /// <summary>
-    /// 被踢下线
-    /// </summary>
-    [pbr::OriginalName("NC_ACK_KICK_OFF")] NcAckKickOff = 8010,
-  }
-
-  #endregion
-
   #region Messages
+  /// <summary>
+  /// msg_id=8003; desc=Request to connect the proxy;
+  /// </summary>
   public sealed partial class ReqConnectProxy : pb::IMessage<ReqConnectProxy>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -378,6 +350,9 @@ namespace Rpc {
 
   }
 
+  /// <summary>
+  /// msg_id=8004; desc=Request to connect the proxy response;
+  /// </summary>
   public sealed partial class AckConnectProxy : pb::IMessage<AckConnectProxy>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -567,6 +542,9 @@ namespace Rpc {
 
   }
 
+  /// <summary>
+  /// msg_id=8005;
+  /// </summary>
   public sealed partial class ReqDisconnectProxy : pb::IMessage<ReqDisconnectProxy>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -719,6 +697,9 @@ namespace Rpc {
 
   }
 
+  /// <summary>
+  /// msg_id=8007;
+  /// </summary>
   public sealed partial class AckDisconnectProxy : pb::IMessage<AckDisconnectProxy>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -908,6 +889,9 @@ namespace Rpc {
 
   }
 
+  /// <summary>
+  /// msg_id=8008;
+  /// </summary>
   public sealed partial class ReqHeartBeat : pb::IMessage<ReqHeartBeat>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1097,6 +1081,9 @@ namespace Rpc {
 
   }
 
+  /// <summary>
+  /// msg_id=8009;
+  /// </summary>
   public sealed partial class AckHeartBeat : pb::IMessage<AckHeartBeat>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1286,6 +1273,9 @@ namespace Rpc {
 
   }
 
+  /// <summary>
+  /// msg_id=8010;
+  /// </summary>
   public sealed partial class AckKickOff : pb::IMessage<AckKickOff>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
