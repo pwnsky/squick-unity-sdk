@@ -6,7 +6,7 @@ The squick Unity SDK
 
 Unity version: 2020.03 above
 
-version: 1.1.0
+version: 1.1.1
 
 [Squick Src](https://github.com/pwnsky/squick)
 
